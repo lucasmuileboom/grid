@@ -111,7 +111,6 @@ public class HeatMapGridBoolObject
         this.x = x;
         this.y = y;
     }
-
     public void Setvalue(bool value) 
     {
         this.value = value;

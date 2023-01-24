@@ -69,7 +69,7 @@ public class Grid<TGridObject>
     {
         return (new Vector3(x, y) * cellSize) + originPosition;
     }
-    private void GetGridXY(Vector3 worldPosition, out int x, out int y) //kijken hoe void en out werkt // wil dit naar een vector 2 omzetten denk ik
+    public void GetGridXY(Vector3 worldPosition, out int x, out int y) //kijken hoe void en out werkt // wil dit naar een vector 2 omzetten denk ik
     {
         x = Mathf.FloorToInt((worldPosition.x - originPosition.x) / cellSize);
         y = Mathf.FloorToInt((worldPosition.y - originPosition.y) / cellSize);
