@@ -5,10 +5,11 @@ using UnityEngine;
 public class PathFindingTest : MonoBehaviour
 {
     [SerializeField] private HeatMapVisualBoolGenericPathFinding heatMapVisualBoolGenericPathFinding;
+    [SerializeField] private MoveOnPath moveOnPath;
     PathFinding pathFinding;
     private bool showDebug = true;
 
-    //toevoegen dat de nodes van kleur verander als je er niet over kan lopen
+    //overal getters en setter toevoegen??
 
     void Start()
     {
@@ -29,15 +30,20 @@ public class PathFindingTest : MonoBehaviour
             mousePosition.z = 0f;
             pathFinding.GetGrid().GetGridXY(mousePosition, out int x, out int y);
 
-            List<PathFindingNode> path = pathFinding.FindPath(Vector3.one, pathFinding.GetGrid().GetWorldPosition(x, y));
+            
 
-            if(path != null && showDebug) 
+            if(showDebug) 
             {
-                for(int i = 0; i < path.Count - 1; i++)
-                {                 
-                    Debug.DrawLine(pathFinding.GetGrid().GetWorldPosition(path[i].x, path[i].y) + (Vector3.one * (pathFinding.GetGrid().GetCellSize() * 0.5f)), pathFinding.GetGrid().GetWorldPosition(path[i + 1].x, path[i + 1].y) + (Vector3.one * (pathFinding.GetGrid().GetCellSize() * 0.5f)), Color.red, 10f);
-                }   
+                List<Vector3> path = pathFinding.FindPath(moveOnPath.GetPosition(), pathFinding.GetGrid().GetWorldPosition(x, y));
+                if(path != null) 
+                {
+                    for(int i = 0; i < path.Count - 1; i++) 
+                    {
+                        Debug.DrawLine(path[i], path[i + 1], Color.red, 10f);
+                    } 
+                } 
             }
+            moveOnPath.SetTargetPosition(mousePosition);
         }
     }
 }

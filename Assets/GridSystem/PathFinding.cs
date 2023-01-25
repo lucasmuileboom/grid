@@ -5,16 +5,33 @@ using UnityEngine;
 public class PathFinding : MonoBehaviour
 {
     private Grid<PathFindingNode> grid;
+    private static PathFinding instance;//werkt alleen als je maar 1 pathfinding script gebruikt
+
+    //kijken of ik een boolean wil meegeven die ervoor zorgt dat je niet meer schuin kan lopen
 
     public PathFinding(int width, int height) 
     {
+        instance = this;
         grid = new Grid<PathFindingNode>(width, height, 5f, Vector3.zero, (Grid<PathFindingNode> g, int x, int y) => new PathFindingNode(g, x, y));
     }
-    public List<PathFindingNode> FindPath(Vector3 startPosition, Vector3 endPosition)
+    public List<Vector3> FindPath(Vector3 startPosition, Vector3 endPosition)
     {
         grid.GetGridXY(startPosition, out int startX, out int startY);
         grid.GetGridXY(endPosition, out int endX, out int endY);
-        return FindPath(startX, startY, endX, endY);
+
+        List<PathFindingNode> path = FindPath(startX, startY, endX, endY);
+
+        if(path != null) 
+        {
+            List<Vector3> vectorPath = new List<Vector3>();
+            foreach(PathFindingNode pathFindingNode in path) 
+            {
+                vectorPath.Add(new Vector3(pathFindingNode.x, pathFindingNode.y) * grid.GetCellSize() + new Vector3(grid.GetCellSize(), grid.GetCellSize()) * 0.5f);
+            }
+            return vectorPath;
+        }
+
+        return null;
     }
     public List<PathFindingNode> FindPath(int startX, int startY, int endX, int endY)
     {
@@ -75,7 +92,7 @@ public class PathFinding : MonoBehaviour
             }
 
         }
-        Debug.Log("path = null : could not find a path");
+        Debug.Log("could not find a path : path = null");
         return null;
     }
     private List<PathFindingNode> retracePath(PathFindingNode endNode) 
@@ -137,5 +154,9 @@ public class PathFinding : MonoBehaviour
     public Grid<PathFindingNode> GetGrid() 
     {
         return grid;
+    }
+    public static PathFinding GetInstance() //werkt alleen als er maar 1 pathfinding script word gebruikt
+    {
+        return instance;
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveOnPath : MonoBehaviour
+public class MoveOnPathOld : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private Vector3 stop;
