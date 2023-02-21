@@ -8,46 +8,35 @@ public class MoveOnPath : MonoBehaviour
     private float speed = 10;
     List<Vector3> VectorPath;
 
-    void Update()
+    private Movement movement;
+
+    void Start() 
     {
-        Move();
+        movement = gameObject.AddComponent<Movement>();
+        movement.reachedTarget += NextTarget;
     }
-    public void Move() 
+    private void NextTarget() 
     {
-        if(VectorPath != null) 
+        pathVectorIndex++;
+        if(pathVectorIndex >= VectorPath.Count)
         {
-            Vector3 targetPosition = VectorPath[pathVectorIndex];
-            float distanceToTarget = Vector3.Distance(GetPosition(), targetPosition);
-            if(distanceToTarget > speed * Time.deltaTime)
-            {
-                Vector3 moveDirection = (targetPosition - GetPosition()).normalized;
-                transform.position = GetPosition() + ((moveDirection * speed) * Time.deltaTime);
-            }
-            else 
-            {
-                pathVectorIndex++;
-                if(pathVectorIndex >= VectorPath.Count) 
-                {
-                    StopMoving();
-                }
-            }
+            VectorPath = null;
+            return;
         }
-    }
-    private void StopMoving() 
-    {
-        VectorPath = null;
-    }
-    public Vector3 GetPosition() 
-    {
-        return transform.position;
+        movement.StartMovingToTarget(VectorPath[pathVectorIndex], speed);
     }
     public void SetTargetPosition(Vector3 targetPosition) 
     {
         pathVectorIndex = 0;
         VectorPath = PathFinding.GetInstance().FindPath(GetPosition(), targetPosition);
-        if(VectorPath != null && VectorPath.Count > 1) //kijken of ik VectorPath.Count > 1 wil houden
+        if(VectorPath != null && VectorPath.Count > 1)
         {
             VectorPath.RemoveAt(0);
         }
+        movement.StartMovingToTarget(VectorPath[pathVectorIndex], speed);
+    }
+    public Vector3 GetPosition() 
+    {
+        return transform.position;
     }
 }

@@ -7,7 +7,7 @@ public class PathFindingNode
     private Grid<PathFindingNode> grid;
     public int x;
     public int y;
-    //kijken of ik x,y public wil houden of dat ik er een getter voor maak
+    //moet een getter toevoegen voor x,y
 
     public int gCost;
     public int hCost;

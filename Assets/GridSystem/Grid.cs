@@ -83,11 +83,11 @@ public class Grid<TGridObject>
             gridArray[x, y] = value;
             if(OnGridValueChanged != null) 
             {
-                OnGridValueChanged(this, new OnGridChangedEventArgs {x = x, y = y });//ff kijk hoe dit werkt
+                OnGridValueChanged(this, new OnGridChangedEventArgs {x = x, y = y });
             }
         }
     }
-    public void SetValue(Vector3 worldPosition, TGridObject value) //kijken wat out doet
+    public void SetValue(Vector3 worldPosition, TGridObject value)
     {
         GetGridXY(worldPosition, out int x, out int y);
         SetValue(x, y, value);
@@ -129,7 +129,7 @@ public class Grid<TGridObject>
     {
         if(OnGridValueChanged != null) 
         {
-            OnGridValueChanged(this, new OnGridChangedEventArgs { x = x, y = y });//ff kijk hoe dit werkt
+            OnGridValueChanged(this, new OnGridChangedEventArgs { x = x, y = y });
         }
     }
 }

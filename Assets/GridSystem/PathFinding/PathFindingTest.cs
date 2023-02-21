@@ -9,8 +9,6 @@ public class PathFindingTest : MonoBehaviour
     PathFinding pathFinding;
     private bool showDebug = true;
 
-    //overal getters en setter toevoegen??
-
     void Start()
     {
         pathFinding = new PathFinding(10,10);
@@ -28,9 +26,7 @@ public class PathFindingTest : MonoBehaviour
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0f;
-            pathFinding.GetGrid().GetGridXY(mousePosition, out int x, out int y);
-
-            
+            pathFinding.GetGrid().GetGridXY(mousePosition, out int x, out int y);            
 
             if(showDebug) 
             {

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class MeshUtils : MonoBehaviour
 {
-    //kijken of ik een functie wil toeveogen die de quads van de mesh verwijdert
-
     public static Mesh CreateEmptyQuadMesh(int quadCount)
     {
         Vector3[] vertices = new Vector3[4 * quadCount];
